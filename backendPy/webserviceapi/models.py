@@ -49,7 +49,7 @@ class UserInformation(models.Model):
     """This class provide details about User
 
     Arguments:
-        models {[type]} -- default inheritent of DJango Model
+        models {class} -- default inheritent of DJango Model
     """
     user = models.OneToOneField(
         User, on_delete=models.CASCADE, primary_key=True)
