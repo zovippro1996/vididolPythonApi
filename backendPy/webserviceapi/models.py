@@ -40,7 +40,7 @@ class Account(AbstractUser):
         auto_now_add=True)
 
 
-class Star(User):
+class Star(Account):
     """This class help identify Star Account
 
     Arguments:
@@ -125,7 +125,9 @@ class VideoLengthOptions(models.Model):
     videolengthoption_time = models.DurationField(
         verbose_name="Duration of the Video")
     videolengthoption_price = models.DecimalField(
-        verbose_name="Price for the Video Length")
+        verbose_name="Price for the Video Length",
+        max_digits=10,
+        decimal_places=2)
     updated_time = models.DateTimeField(
         verbose_name="Logging record last changed time",
         auto_now=True)
@@ -143,10 +145,12 @@ class FanRequest(models.Model):
     request_account = models.ForeignKey(
         Account,
         on_delete=models.CASCADE,
+        related_name="request_from",
         verbose_name="Account sends the request")
     request_star_account = models.ForeignKey(
         Star,
         on_delete=models.CASCADE,
+        related_name="request_to",
         verbose_name="Star receives the request")
     request_content = models.CharField(
         verbose_name="Message from User",
@@ -216,7 +220,9 @@ class PostComment(models.Model):
         on_delete=models.CASCADE,
         verbose_name="Owner of the comment")
     comment_content = models.CharField(
-        verbose_name="Content of the comment")
+        verbose_name="Content of the comment",
+        max_length=256
+    )
     updated_time = models.DateTimeField(
         verbose_name="Logging record last changed time",
         auto_now=True)
@@ -263,7 +269,8 @@ class Log(models.Model):
         models {class} -- default inheritent of Django Model
     """
     log_description = models.CharField(
-        verbose_name="Log description"
+        verbose_name="Log description",
+        max_length=2056
     )
     updated_time = models.DateTimeField(
         verbose_name="Logging record last changed time",

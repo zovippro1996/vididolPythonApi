@@ -13,6 +13,7 @@ pip install django
 pip install djangorestframework
 pip install mysqlclient
 python -m pip install django[bcrypt] #For Password encrypt function in Django
+pip install django-cors-headers
 ```
 
 

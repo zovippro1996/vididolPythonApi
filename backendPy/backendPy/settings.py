@@ -86,10 +86,10 @@ WSGI_APPLICATION = 'backendPy.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'vididolstagingdb',
-        'USER': 'vididoladmin',
-        'PASSWORD': 'vididolAdmin123@',
-        'HOST': 'db4free.net',
+        'NAME': 'vididoltestingdatabase',
+        'USER': 'vididol_admin@vididoltestingdatabase',
+        'PASSWORD': 'SuperUser@123',
+        'HOST': 'vididoltestingdatabase.mysql.database.azure.com',
         'PORT': '3306',
     }
 }
@@ -143,3 +143,4 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/3.0/howto/static-files/
 
 STATIC_URL = '/static/'
+MEDIA_URL = '/media/uploadfile/'
