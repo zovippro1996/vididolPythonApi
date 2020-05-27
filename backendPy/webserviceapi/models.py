@@ -9,14 +9,6 @@ class Account(AbstractUser):
     Arguments:
         AbstractUser {class} -- Django Class
     """
-    account_username = models.CharField(
-        verbose_name="User's personal email",
-        max_length=100,
-        unique=True)
-    account_email = models.EmailField(
-        verbose_name="User's personal email",
-        max_length=200,
-        unique=True)
     account_facebook_link = models.URLField(
         verbose_name="User's Facebook link",
         max_length=250)
@@ -26,9 +18,6 @@ class Account(AbstractUser):
     account_is_email_activated = models.BooleanField(
         verbose_name="check User email activated",
         default=False)
-    account_is_active = models.BooleanField(
-        verbose_name="User activate or deactivate",
-        default=True)
     account_is_star = models.BooleanField(
         verbose_name="User is Star or Not",
         default=False)
@@ -142,7 +131,7 @@ class FanRequest(models.Model):
     Arguments:
         models {class} -- default inheritent of Django Model
     """
-    request_account = models.ForeignKey(
+    request_owner_account = models.ForeignKey(
         Account,
         on_delete=models.CASCADE,
         related_name="request_from",
@@ -184,7 +173,7 @@ class Post(models.Model):
     Arguments:
         models {class} -- default inheritent of Django Model
     """
-    owner = models.ForeignKey(
+    post_owner = models.ForeignKey(
         Account,
         on_delete=models.CASCADE,
         verbose_name="Owner of the post"
@@ -215,7 +204,7 @@ class PostComment(models.Model):
     Arguments:
         models {class} -- default inheritent of Django Model
     """
-    owner = models.ForeignKey(
+    comment_owner = models.ForeignKey(
         Account,
         on_delete=models.CASCADE,
         verbose_name="Owner of the comment")
