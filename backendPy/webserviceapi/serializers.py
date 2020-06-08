@@ -1,30 +1,6 @@
 from django.contrib.auth.models import User
 from rest_framework import serializers
-from backendPy.webserviceapi.models import Account, Star, UserInformation, Video, VideoLengthOptions, FanRequest, Post, PostComment, Notification
-
-
-class AccountSerializer(serializers.ModelSerializer):
-    class Meta:
-        model = Account
-        fields = [
-            'id',
-            'username',
-            'password',
-            'email',
-            'is_active',
-            'account_facebook_link',
-            'account_instagram_link',
-            'account_is_email_activated',
-            'account_is_star']
-
-
-class StarSerializer(serializers.ModelSerializer):
-    class Meta:
-        model = Star
-        fields = [
-            'account_ptr_id',
-            'star_is_certified',
-            'star_response_rate']
+from webserviceapi.models import Account, Star, UserInformation, Video, VideoLengthOptions, FanRequest, Post, PostComment, Notification
 
 
 class UserInformationSerializer(serializers.ModelSerializer):
@@ -36,6 +12,32 @@ class UserInformationSerializer(serializers.ModelSerializer):
             'userinformation_avatarlocation',
             'userinformation_phonenumber',
             'userinformation_description_bio']
+
+
+class AccountSerializer(serializers.ModelSerializer):
+    userinformation = UserInformationSerializer()
+    class Meta:
+        model = Account
+        fields = [
+            'id',
+            'username',
+            'email',
+            'is_active',
+            'account_facebook_link',
+            'account_instagram_link',
+            'account_is_email_activated',
+            'account_is_star',
+            'userinformation']
+
+
+class StarSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Star
+        fields = [
+            'account_ptr_id',
+            'star_is_certified',
+            'star_response_rate']
+
 
 
 class VideoSerializer(serializers.ModelSerializer):
