@@ -68,8 +68,8 @@ class FanRequestSerializer(serializers.ModelSerializer):
             'request_content',
             'request_status',
             'request_is_read',
-            'request_owner_account_id',
-            'request_star_account_id']
+            'request_owner_account',
+            'request_star_account']
 
 
 class PostSerializer(serializers.ModelSerializer):

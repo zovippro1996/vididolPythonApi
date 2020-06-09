@@ -4,13 +4,15 @@ from rest_framework import viewsets, status
 from rest_framework.parsers import JSONParser
 from django.http.response import JsonResponse
 from django.views.decorators.csrf import csrf_exempt
-from webserviceapi.models import Account, Post, FanRequest, Video, VideoLengthOptions
+from webserviceapi.models import Account, Post, FanRequest, Video, VideoLengthOptions, Star
 from webserviceapi.serializers import AccountSerializer, PostSerializer, FanRequestSerializer, VideoLengthOptionsSerializer, VideoSerializer
 from django.contrib.auth import authenticate, login
+from rest_framework.decorators import api_view
 import logging
 
 # Get an instance of a logger
 logger = logging.getLogger(__name__)
+
 
 def index(request):
     return HttpResponse("<h1>Hello World!</h1>")
@@ -135,10 +137,20 @@ def fanrequest_list(request):
     # Add one
     if request.method == 'POST':
         fanrequest_data = JSONParser().parse(request)
+
+        request_star_account_id = fanrequest_data['request_star_account']
+        request_owner_account_id = fanrequest_data['request_owner_account']
         fanrequest_serializer = FanRequestSerializer(data=fanrequest_data)
+
         if fanrequest_serializer.is_valid():
-            fanrequest_serializer.save()
+            fanrequest_serializer.save(
+                request_star_account=Star.objects.get(
+                    pk=request_star_account_id),
+                request_owner_account=Account.objects.get(
+                    pk=request_owner_account_id)
+            )
             return JsonResponse(fanrequest_serializer.data, status=status.HTTP_201_CREATED)
+
         return JsonResponse(fanrequest_serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
 
