@@ -14,8 +14,20 @@ class UserInformationSerializer(serializers.ModelSerializer):
             'userinformation_description_bio']
 
 
+class StarSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Star
+        fields = [
+            'account_ptr_id',
+            'star_is_certified',
+            'star_response_rate',
+        ]
+
+
 class AccountSerializer(serializers.ModelSerializer):
     userinformation = UserInformationSerializer()
+    star = StarSerializer()
+
     class Meta:
         model = Account
         fields = [
@@ -27,16 +39,8 @@ class AccountSerializer(serializers.ModelSerializer):
             'account_instagram_link',
             'account_is_email_activated',
             'account_is_star',
-            'userinformation']
-
-
-class StarSerializer(serializers.ModelSerializer):
-    class Meta:
-        model = Star
-        fields = [
-            'account_ptr_id',
-            'star_is_certified',
-            'star_response_rate']
+            'userinformation',
+            'star']
 
 
 
