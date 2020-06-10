@@ -19,6 +19,7 @@ def index(request):
 
 
 @csrf_exempt
+@api_view(['GET', 'POST'])
 def star_list(request):
     """ Manipulate stars based on request
 
@@ -122,6 +123,7 @@ def post_detail(request, pk):
 
 
 @csrf_exempt
+@api_view(['GET', 'POST'])
 def fanrequest_list(request):
     """ Manipulate Fan-request
 
