@@ -3,6 +3,8 @@ from webserviceapi import views
 from django.conf.urls import url
 from django.views.generic import TemplateView
 from rest_framework.schemas import get_schema_view
+from django.conf import settings
+from django.conf.urls.static import static
 
 urlpatterns = [
     path("stars/", views.star_list),
@@ -18,4 +20,4 @@ urlpatterns = [
         description="API for all things …",
         version="1.0.0"
     ), name='openapi-schema')
-]
+] + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
