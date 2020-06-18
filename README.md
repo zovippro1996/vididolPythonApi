@@ -16,6 +16,7 @@ python -m pip install django[bcrypt] #For Password encrypt function in Django
 pip install django-cors-headers
 pip install httpie
 pip install django-rest-swagger #For Swagger Testing API
+pip3 install -r requirements.txt
 ```
 
 
