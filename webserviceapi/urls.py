@@ -11,13 +11,15 @@ urlpatterns = [
     path("stars/<int:pk>/", views.star_detail),
     path("fanrequest/", views.fanrequest_list),
     path("fanrequest/<int:pk>/", views.fanrequest_detail),
+    path("user_signin/", views.user_signin),
+    path("user_signup/", views.user_signup),
     path('swagger-ui/', TemplateView.as_view(
         template_name='swagger-ui.html',
         extra_context={'schema_url': 'openapi-schema'}
     ), name='swagger-ui'),
     path('openapi', get_schema_view(
-        title="Your Project",
-        description="API for all things …",
-        version="1.0.0"
+        title="Vididol API",
+        description="API",
+        version="1.0.2"
     ), name='openapi-schema')
 ] + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)

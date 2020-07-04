@@ -19,7 +19,7 @@ def index(request):
 
 
 @csrf_exempt
-@api_view(['GET', 'POST'])
+@api_view(['GET', 'POST', 'DELETE'])
 def star_list(request):
     """ Manipulate stars based on request
 
@@ -48,6 +48,7 @@ def star_list(request):
 
 
 @csrf_exempt
+@api_view(['GET', 'PUT', 'DELETE'])
 def star_detail(request, pk):
     try:
         star = Account.objects.get(pk=pk)
@@ -75,6 +76,7 @@ def star_detail(request, pk):
 
 
 @csrf_exempt
+@api_view(['POST'])
 def user_signin(request):
     # Sign In with Username and Password
     if request.method == 'POST':
@@ -96,6 +98,21 @@ def user_signin(request):
 
 
 @csrf_exempt
+@api_view(['POST'])
+def user_signup(request):
+    # Sign Up User based on information
+    if request.method == 'POST':
+        signup_data = JSONParser().parse(request)
+        signup_serializer = AccountSerializer(data=signup_data)
+        if signup_serializer.is_valid():
+            signup_serializer.save()
+            return JsonResponse(signup_serializer.data, status=status.HTTP_201_CREATED)
+
+    return JsonResponse(signup_serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+
+@csrf_exempt
+@api_view(['GET', 'PUT', 'DELETE'])
 def post_detail(request, pk):
     try:
         post = Post.objects.get(pk=pk)
@@ -157,7 +174,17 @@ def fanrequest_list(request):
 
 
 @csrf_exempt
+@api_view(['GET', 'PUT', 'DELETE'])
 def fanrequest_detail(request, pk):
+    """Get Fan Request Details from Primary Key
+
+    Args:
+        request (HTTPRequest): HTTPRequest
+        pk (number): Unique Identifier for Fan Request
+
+    Returns:
+        HTTPResponse: result of the request
+    """
     try:
         fanrequest = FanRequest.objects.get(pk=pk)
     except FanRequest.DoesNotExist:
